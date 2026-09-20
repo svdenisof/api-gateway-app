@@ -1,0 +1,56 @@
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
+        cloud:
+          gateway: DEBUG
+        web:
+          server:
+            session: DEBUG
+        http: DEBUG
+    reactor:
+      netty: INFO
+
+spring:
+  application:
+    name: api-gateway
+  banner:
+    location: classpath:/banner.txt
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL:https://localhost:8040/auth}/realms/internalApi
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+  cloud:
+    gateway:
+      server:
+        webflux:
+          default-filters:
+            - name: AddRequestHeader
+              args:
+                name: X-Gateway-Source
+                value: api-gateway
+          routes:
+            - id: default-service
+              uri: ${DEFAULT_SERVICE_URI:http://localhost:8088}
+              predicates:
+                - Path=/default/**
+
+server:
+  port: ${WEB_SERVICE_PORT:8080}
+
+graylog:
+  host: ${GREYLOG_HOST:127.0.0.1}
+  port: ${GREYLOG_PORT:14830}
+
+gateway:
+  server-uri: ${GATEWAY_SERVER_URI:https://api-gateway.debian}
+  allowed-origins: ${ALLOWED_ORIGINS:http://localhost:8080}
+  permitted-paths: ${PERMITTED_PATHS:/login**,/actuator/**,/*/actuator/**,/,/public/**,/oauth2/authorization/**,/login/oauth2/code/**,/swagger-ui.html,/swagger-ui/**,/v3/**,/ws,/ws/**,/**/ws,/*/ws/**}
+  expected-audience: ${KEYCLOAK_AUDIENCE:backendAud}
+
+management.endpoints.web.exposure.include: health, prometheus, loggers, metrics, info
+management.info.git.mode: full
+management.endpoint.health.show-components: always

@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<ruleset name="Custom ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    <description>PMD configuration</description>
+
+    <exclude-pattern>.*/test/.*</exclude-pattern>
+
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="GuardLogStatement"/>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/AbstractClassWithoutAbstractMethod">
+        <properties>
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration['.*TestBase']"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="CommentDefaultAccessModifier"/>
+        <exclude name="LongVariable"/>
+        <exclude name="ShortVariable"/>
+        <exclude name="MethodArgumentCouldBeFinal"/>
+        <exclude name="LocalVariableCouldBeFinal"/>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/TypeParameterNamingConventions">
+        <properties>
+            <property name="typeParameterNamePattern" value="[A-Z][a-zA-Z]*" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <property name="utilityClassPattern" value="[A-Z][a-zA-Z0-9]*"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/FormalParameterNamingConventions">
+        <properties>
+            <property name="methodParameterPattern" value="[a-z][a-zA-Z0-9]*" />
+            <property name="finalMethodParameterPattern" value="[a-z][a-zA-Z0-9]*" />
+            <property name="lambdaParameterPattern" value="[a-zA-Z][a-zA-Z0-9]*" />
+            <property name="explicitLambdaParameterPattern" value="[a-z][a-zA-Z0-9]*" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/ShortMethodName">
+        <properties>
+            <property name="minimum" value="2"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/ShortClassName">
+        <properties>
+            <property name="minimum" value="3" />
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/LinguisticNaming">
+        <properties>
+            <property name="checkSetters" value="false"/>
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceBodyDeclaration/Annotation/MarkerAnnotation//Name[@Image='Test']"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/FieldNamingConventions">
+        <properties>
+            <property name="constantPattern" value="[A-Z][A-Z_0-9]*|serialVersionUID"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/design.xml">
+        <exclude name="LawOfDemeter"/>
+        <exclude name="LoosePackageCoupling"/>
+        <exclude name="AvoidCatchingGenericException"/>
+        <exclude name="UseUtilityClass"/>
+        <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal"/>
+        <exclude name="DataClass"/>
+        <exclude name="TooManyMethods"/>
+    </rule>
+
+    <rule ref="category/java/design.xml/AbstractClassWithoutAnyMethod">
+        <properties>
+            <property name="violationSuppressXPath" value="//ClassOrInterfaceDeclaration['.*TestBase']"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/documentation.xml">
+        <exclude name="CommentRequired"/>
+        <exclude name="CommentSize"/>
+        <exclude name="UncommentedEmptyConstructor"/>
+    </rule>
+
+    <rule ref="category/java/multithreading.xml">
+        <exclude name="UseConcurrentHashMap"/>
+        <exclude name="DoNotUseThreads"/>
+    </rule>
+
+    <rule ref="category/java/performance.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops"/>
+    </rule>
+
+    <rule ref="category/java/security.xml"/>
+
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="NonSerializableClass"/>
+        <exclude name="AvoidLiteralsInIfCondition"/>
+        <exclude name="AvoidFieldNameMatchingMethodName"/>
+        <exclude name="EqualsNull"/>
+        <exclude name="AvoidDuplicateLiterals"/>
+        <exclude name="AvoidAccessibilityAlteration"/>
+        <exclude name="NullAssignment"/>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/UseExplicitTypes">
+        <properties>
+            <property name="allowLiterals" value="true" />
+            <property name="allowCtors" value="true" />
+            <property name="allowCasts" value="true" />
+            <property name="allowLoopVariable" value="true" />
+        </properties>
+    </rule>
+
+</ruleset>
